@@ -11,9 +11,14 @@
 #' @useDynLib dialrs, .registration = TRUE
 NULL
 
-#' Parse phone number
 #' @export
 is_valid <- function(input) .Call(wrap__is_valid, input)
+
+#' @export
+parse_phone_print <- function(input) invisible(.Call(wrap__parse_phone_print, input))
+
+#' @export
+parse_phone_r <- function(input) .Call(wrap__parse_phone_r, input)
 
 
 # nolint end
