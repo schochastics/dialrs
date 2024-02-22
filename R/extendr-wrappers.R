@@ -18,7 +18,13 @@ is_valid <- function(input) .Call(wrap__is_valid, input)
 parse_phone_print <- function(input) invisible(.Call(wrap__parse_phone_print, input))
 
 #' @export
-parse_phone_r <- function(input) .Call(wrap__parse_phone_r, input)
+phone_to_r <- function(input, country) .Call(wrap__phone_to_r, input, country)
+
+#' @export
+phones_to_r <- function(inputs) .Call(wrap__phones_to_r, inputs)
+
+#' @export
+phone_type <- function(input) invisible(.Call(wrap__phone_type, input))
 
 
 # nolint end
