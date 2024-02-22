@@ -17,3 +17,6 @@ character vector of phone number types
 \description{
 Return type of phone number
 }
+\examples{
+phone_type(fake_phone)
+}

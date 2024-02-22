@@ -16,6 +16,8 @@ phone_parse(phone, country = "", format)
 }
 \value{
 character vector of parsed and formatted phone numbers
+phone_parse(fake_phone,format = "RFC3966")
+phone_parse("016012345678",country = "DE",format = "International")
 }
 \description{
 Parse phone numbers into specific format

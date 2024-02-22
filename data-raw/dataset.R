@@ -1,4 +1,54 @@
 fake_phone <- c(
+    "+1 202-555-0173", # US number with space and dash
+    "+442071838750", # UK number, standard
+    "+33-1-22-33-44-55", # France number with dashes
+    "+49891234567", # Germany number, no separator
+    "+819012345678", # Japan number, long
+    "+61234567890", # Australia number, standard
+    "+5511955551234", # Brazil number, mobile
+    "+8613800138000", # China number, mobile
+    "+7 499 123-45-67", # Russia number with spaces and dash
+    "+27123456789", # South Africa, standard
+    "+911234567890", # India, long
+    "+39 02 1234 1234", # Italy, with spaces
+    "+34555555555", # Spain, mobile
+    "+46701234567", # Sweden, mobile
+    "+48221234567", # Poland, standard
+    "+302101234567", # Greece, standard
+    "+902123456789", # Turkey, standard
+    "+971501234567", # UAE, mobile
+    "+201001234567", # Egypt, mobile
+    "+525512345678", # Mexico, mobile
+    "+31 20 123 4567", # Netherlands, with spaces
+    "+41441234567", # Switzerland, standard
+    "+4732123456", # Norway, standard
+    "+358 20 1234567", # Finland, with space
+    "+3721234567", # Estonia, standard
+    "+64211234567", # New Zealand, mobile
+    "+601123456789", # Malaysia, mobile
+    "+6561234567", # Singapore, standard
+    "+2348012345678", # Nigeria, mobile
+    "+380501234567", # Ukraine, mobile
+    "+541112345678", # Argentina, standard
+    "+56212345678", # Chile, standard
+    "+573123456789", # Colombia, mobile
+    "+30210", # Greece, too short
+    "+123", # Invalid country code
+    "1234567890", # No country code
+    "+9991234567", # Unassigned country code
+    "+1 800 FLOWERS", # Alphanumeric
+    "+447911123456", # UK, mobile
+    "+448001234567", # UK, free phone
+    "+441632960961", # UK, standard
+    "+12024561111", # US, New York
+    "+12125551212", # US, fake number
+    "+358401234567", # Finland, mobile
+    "+7 800 123 4567", # Russia, free phone
+    "+85212345678", # Hong Kong, standard
+    "+27831234567", # South Africa, mobile
+    "+918032761234", # India, standard
+    "+551143218999", # Brazil, Sao Paulo
+    "+33123456789", # France, standard
     "+1-800-123-4567", # US toll-free
     "+44 20 7946 0958", # UK, London
     "+49-89-636-48018", # Germany, Munich

@@ -17,3 +17,6 @@ TRUE if valid phone number, FALSE otherwise
 \description{
 Check if strings are valid phone numbers
 }
+\examples{
+phone_is_valid(fake_phone)
+}

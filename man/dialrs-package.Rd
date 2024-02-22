@@ -4,11 +4,21 @@
 \name{dialrs-package}
 \alias{dialrs}
 \alias{dialrs-package}
-\title{dialrs: What the Package Does (One Line, Title Case)}
+\title{dialrs: Parse phone numbers}
 \description{
-What the package does (one paragraph).
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
+Parse phone numbers using the Rust crate 'phonenumber'. Includes validation of numbers and formatting.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/schochastics/dialrs}
+  \item Report bugs at \url{https://github.com/schochastics/dialrs/issues}
+}
+
 }
 \author{
-\strong{Maintainer}: First Last \email{first.last@example.com} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
+\strong{Maintainer}: David Schoch \email{david@schochastics.net} (\href{https://orcid.org/0000-0003-2952-4812}{ORCID})
 
 }

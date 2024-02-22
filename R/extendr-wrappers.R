@@ -23,6 +23,8 @@ parse_phone_rs_rfc3966 <- function(phone, country) .Call(wrap__parse_phone_rs_rf
 
 parse_phone_rs_e164 <- function(phone, country) .Call(wrap__parse_phone_rs_e164, phone, country)
 
+phone_country_codes_rs <- function(phone) .Call(wrap__phone_country_codes_rs, phone)
+
 #' Print Rust internal phonenumber for debugging purposes
 #' @param input character. a phone number to parse
 #' @param country_code character. CLDR code

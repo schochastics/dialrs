@@ -2,6 +2,8 @@
 #' @param phone character vector of phone numbers
 #' @param country CLDR country code. If empty, tries to parse it from `phone`
 #' @return TRUE if valid phone number, FALSE otherwise
+#' @examples
+#' phone_is_valid(fake_phone)
 #' @export
 phone_is_valid <- function(phone, country = "") {
     is_valid_rs(phone, country)
@@ -11,6 +13,8 @@ phone_is_valid <- function(phone, country = "") {
 #' Return type of phone number
 #' @inheritParams phone_is_valid
 #' @return character vector of phone number types
+#' @examples
+#' phone_type(fake_phone)
 #' @export
 phone_type <- function(phone, country = "") {
     res <- phone_types_rs(phone, country)
@@ -22,6 +26,8 @@ phone_type <- function(phone, country = "") {
 #' @inheritParams phone_is_valid
 #' @format character. one of "International", "National", "RFC3966", "E.164"
 #' @return character vector of parsed and formatted phone numbers
+#' phone_parse(fake_phone,format = "RFC3966")
+#' phone_parse("016012345678",country = "DE",format = "International")
 #' @export
 phone_parse <- function(phone, country = "", format) {
     format <- match.arg(format, c("International", "National", "RFC3966", "E.164"))
@@ -35,5 +41,16 @@ phone_parse <- function(phone, country = "", format) {
         res <- parse_phone_rs_e164(phone, country)
     }
     res[res == ""] <- NA_character_
+    res
+}
+
+#' Extact country code from phone numbers
+#' @inheritParams phone_is_valid
+#' @return integer vector of country codes
+#' phone_country_code("+4916012345678")
+#' @export
+phone_country_code <- function(phone) {
+    res <- phone_country_codes_rs(phone)
+    res[res == 9999] <- NA_integer_
     res
 }
