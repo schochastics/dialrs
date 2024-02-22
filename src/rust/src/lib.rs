@@ -1,5 +1,6 @@
 use extendr_api::prelude::*;
 use phonenumber::PhoneNumber;
+use serde_json;
 
 /// @export
 #[extendr]
@@ -53,17 +54,40 @@ fn is_valid(input: &str) -> bool {
     }
 }
 
+// fn phone_types(inputs: Vec<String>) -> Robj {
+//     let types: Vec<Robj> = inputs
+//         .into_iter()
+//         .map(|input| {
+//             let result = phonenumber::parse(None, input);
+//             match result {
+//                 Ok(value) => {
+//                     let ptype = value.number_type(&phonenumber::metadata::DATABASE);
+//                     r!(serde_json::to_string(&ptype).unwrap().trim_matches('"'))
+//                 }
+//                 Err(_e) => r!(NA_STRING),
+//             }
+//         })
+//         .collect();
+
+//     types.into()
+// }
+
 /// @export
 #[extendr]
-fn phone_type(input: &str) {
-    let result = phonenumber::parse(None, input);
-    match result {
-        Ok(value) => {
-            let ptype = value.number_type(&phonenumber::metadata::DATABASE);
-            println!("{:?}", ptype)
-        }
-        Err(_e) => println!("error"),
-    }
+fn phone_types(inputs: Vec<String>) -> Vec<String> {
+    inputs
+        .into_iter()
+        .map(|input| match phonenumber::parse(None, &input) {
+            Ok(value) => {
+                let ptype = value.number_type(&phonenumber::metadata::DATABASE);
+                serde_json::to_string(&ptype)
+                    .unwrap()
+                    .trim_matches('"')
+                    .to_string()
+            }
+            Err(_e) => "NA".to_string(),
+        })
+        .collect()
 }
 
 extendr_module! {
@@ -72,5 +96,5 @@ extendr_module! {
     fn parse_phone_print;
     fn phone_to_r;
     fn phones_to_r;
-    fn phone_type;
+    fn phone_types;
 }

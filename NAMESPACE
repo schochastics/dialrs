@@ -3,6 +3,6 @@
 export(is_valid)
 export(parse_phone_print)
 export(phone_to_r)
-export(phone_type)
+export(phone_types)
 export(phones_to_r)
 useDynLib(dialrs, .registration = TRUE)

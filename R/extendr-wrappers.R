@@ -24,7 +24,7 @@ phone_to_r <- function(input, country) .Call(wrap__phone_to_r, input, country)
 phones_to_r <- function(inputs) .Call(wrap__phones_to_r, inputs)
 
 #' @export
-phone_type <- function(input) invisible(.Call(wrap__phone_type, input))
+phone_types <- function(inputs) .Call(wrap__phone_types, inputs)
 
 
 # nolint end
