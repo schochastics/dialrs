@@ -1,11 +1,21 @@
 use extendr_api::prelude::*;
-use phonenumber::PhoneNumber;
+use phonenumber::Mode;
 use serde_json;
+use std::str::FromStr;
 
+fn strip_hyphens(input: &str) -> String {
+    input.replace("-", "")
+}
+
+/// Print Rust internal phonenumber for debugging purposes
+/// @param input character. a phone number to parse
+/// @param country_code character. CLDR code
+/// @return nothing just used for side effects
 /// @export
 #[extendr]
-fn parse_phone_print(input: &str) {
-    match phonenumber::parse(None, input) {
+fn phone_debug_print(input: &str, country: &str) {
+    let region = phonenumber::country::Id::from_str(country).ok();
+    match phonenumber::parse(region, strip_hyphens(input)) {
         Ok(phone_number) => {
             println!("Parsed phone number successfully: {:#?}", phone_number);
         }
@@ -15,69 +25,82 @@ fn parse_phone_print(input: &str) {
     }
 }
 
-/// @export
 #[extendr]
-fn phone_to_r(input: &str, country: &str) -> Robj {
-    match phonenumber::parse(None, input) {
-        Ok(phone_number) => list!(
-            code = phone_number.code().value(),
-            national = phone_number.national().value()
-        )
-        .into(),
-        Err(e) => list!(code = r!(NA_INTEGER), national = r!(NA_INTEGER)).into(),
-    }
-}
-
-/// @export
-#[extendr]
-fn phones_to_r(inputs: Vec<String>) -> Vec<Robj> {
-    inputs
+fn parse_phone_rs_international(phone: Vec<String>, country: &str) -> Vec<String> {
+    let region = phonenumber::country::Id::from_str(country).ok();
+    phone
         .into_iter()
-        .map(|input| match phonenumber::parse(None, input) {
-            Ok(phone_number) => list!(
-                code = phone_number.code().value(),
-                national = phone_number.national().value()
-            )
-            .into(),
-            Err(_) => list!(code = r!(NA_INTEGER), national = r!(NA_INTEGER)).into(),
-        })
+        .map(
+            |input| match phonenumber::parse(region, strip_hyphens(&input)) {
+                Ok(number) => number.format().mode(Mode::International).to_string(),
+                Err(_e) => String::new(),
+            },
+        )
         .collect()
 }
 
-/// @export
 #[extendr]
-fn is_valid(input: &str) -> bool {
-    let result = phonenumber::parse(None, input);
-    match result {
-        Ok(value) => phonenumber::is_valid(&value),
-        Err(_e) => false,
-    }
+fn parse_phone_rs_national(phone: Vec<String>, country: &str) -> Vec<String> {
+    let region = phonenumber::country::Id::from_str(country).ok();
+    phone
+        .into_iter()
+        .map(
+            |input| match phonenumber::parse(region, strip_hyphens(&input)) {
+                Ok(number) => number.format().mode(Mode::National).to_string(),
+                Err(_e) => String::new(),
+            },
+        )
+        .collect()
 }
 
-// fn phone_types(inputs: Vec<String>) -> Robj {
-//     let types: Vec<Robj> = inputs
-//         .into_iter()
-//         .map(|input| {
-//             let result = phonenumber::parse(None, input);
-//             match result {
-//                 Ok(value) => {
-//                     let ptype = value.number_type(&phonenumber::metadata::DATABASE);
-//                     r!(serde_json::to_string(&ptype).unwrap().trim_matches('"'))
-//                 }
-//                 Err(_e) => r!(NA_STRING),
-//             }
-//         })
-//         .collect();
-
-//     types.into()
-// }
-
-/// @export
 #[extendr]
-fn phone_types(inputs: Vec<String>) -> Vec<String> {
-    inputs
+fn parse_phone_rs_rfc3966(phone: Vec<String>, country: &str) -> Vec<String> {
+    let region = phonenumber::country::Id::from_str(country).ok();
+    phone
         .into_iter()
-        .map(|input| match phonenumber::parse(None, &input) {
+        .map(
+            |input| match phonenumber::parse(region, strip_hyphens(&input)) {
+                Ok(number) => number.format().mode(Mode::Rfc3966).to_string(),
+                Err(_e) => String::new(),
+            },
+        )
+        .collect()
+}
+
+#[extendr]
+fn parse_phone_rs_e164(phone: Vec<String>, country: &str) -> Vec<String> {
+    let region = phonenumber::country::Id::from_str(country).ok();
+    phone
+        .into_iter()
+        .map(
+            |input| match phonenumber::parse(region, strip_hyphens(&input)) {
+                Ok(number) => number.format().mode(Mode::E164).to_string(),
+                Err(_e) => String::new(),
+            },
+        )
+        .collect()
+}
+
+#[extendr]
+fn is_valid_rs(phone: Vec<String>, country: &str) -> Vec<bool> {
+    let region = phonenumber::country::Id::from_str(country).ok();
+    phone
+        .iter()
+        .map(
+            |input| match phonenumber::parse(region, strip_hyphens(input)) {
+                Ok(value) => phonenumber::is_valid(&value),
+                Err(_e) => false,
+            },
+        )
+        .collect()
+}
+
+#[extendr]
+fn phone_types_rs(phone: Vec<String>, country: &str) -> Vec<String> {
+    let region = phonenumber::country::Id::from_str(country).ok();
+    phone
+        .into_iter()
+        .map(|input| match phonenumber::parse(region, &input) {
             Ok(value) => {
                 let ptype = value.number_type(&phonenumber::metadata::DATABASE);
                 serde_json::to_string(&ptype)
@@ -85,16 +108,18 @@ fn phone_types(inputs: Vec<String>) -> Vec<String> {
                     .trim_matches('"')
                     .to_string()
             }
-            Err(_e) => "NA".to_string(),
+            Err(_e) => String::new(),
         })
         .collect()
 }
 
 extendr_module! {
     mod dialrs;
-    fn is_valid;
-    fn parse_phone_print;
-    fn phone_to_r;
-    fn phones_to_r;
-    fn phone_types;
+    fn is_valid_rs;
+    fn phone_types_rs;
+    fn parse_phone_rs_international;
+    fn parse_phone_rs_national;
+    fn parse_phone_rs_rfc3966;
+    fn parse_phone_rs_e164;
+    fn phone_debug_print;
 }

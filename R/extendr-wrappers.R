@@ -11,20 +11,24 @@
 #' @useDynLib dialrs, .registration = TRUE
 NULL
 
-#' @export
-is_valid <- function(input) .Call(wrap__is_valid, input)
+is_valid_rs <- function(phone, country) .Call(wrap__is_valid_rs, phone, country)
 
-#' @export
-parse_phone_print <- function(input) invisible(.Call(wrap__parse_phone_print, input))
+phone_types_rs <- function(phone, country) .Call(wrap__phone_types_rs, phone, country)
 
-#' @export
-phone_to_r <- function(input, country) .Call(wrap__phone_to_r, input, country)
+parse_phone_rs_international <- function(phone, country) .Call(wrap__parse_phone_rs_international, phone, country)
 
-#' @export
-phones_to_r <- function(inputs) .Call(wrap__phones_to_r, inputs)
+parse_phone_rs_national <- function(phone, country) .Call(wrap__parse_phone_rs_national, phone, country)
 
+parse_phone_rs_rfc3966 <- function(phone, country) .Call(wrap__parse_phone_rs_rfc3966, phone, country)
+
+parse_phone_rs_e164 <- function(phone, country) .Call(wrap__parse_phone_rs_e164, phone, country)
+
+#' Print Rust internal phonenumber for debugging purposes
+#' @param input character. a phone number to parse
+#' @param country_code character. CLDR code
+#' @return nothing just used for side effects
 #' @export
-phone_types <- function(inputs) .Call(wrap__phone_types, inputs)
+phone_debug_print <- function(input, country) invisible(.Call(wrap__phone_debug_print, input, country))
 
 
 # nolint end
