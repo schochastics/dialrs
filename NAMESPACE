@@ -3,6 +3,7 @@
 export(phone_country_code)
 export(phone_debug_print)
 export(phone_is_valid)
+export(phone_iso_code)
 export(phone_parse)
 export(phone_type)
 useDynLib(dialrs, .registration = TRUE)

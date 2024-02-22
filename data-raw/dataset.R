@@ -101,3 +101,15 @@ fake_phone <- c(
     "+507 507-7200" # Panama, Panama City
 )
 usethis::use_data(fake_phone, overwrite = TRUE)
+
+library(rvest)
+library(dplyr)
+url <- "https://countrycode.org/"
+doc <- read_html(url)
+countries <- html_table(doc)[[1]] |>
+    janitor::clean_names() |>
+    select(country, country_code, iso_codes) |>
+    tidyr::separate_wider_delim(iso_codes, " / ", names = c("iso2", "iso3")) |>
+    as.data.frame()
+
+usethis::use_data(countries, internal = TRUE, overwrite = TRUE)

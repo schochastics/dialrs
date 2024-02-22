@@ -2,7 +2,7 @@
 % Please edit documentation in R/phone.R
 \name{phone_country_code}
 \alias{phone_country_code}
-\title{Extact country code from phone numbers}
+\title{Extract country code from phone numbers}
 \usage{
 phone_country_code(phone)
 }
@@ -14,5 +14,5 @@ integer vector of country codes
 phone_country_code("+4916012345678")
 }
 \description{
-Extact country code from phone numbers
+Extract country code from phone numbers
 }

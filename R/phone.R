@@ -44,7 +44,7 @@ phone_parse <- function(phone, country = "", format) {
     res
 }
 
-#' Extact country code from phone numbers
+#' Extract country code from phone numbers
 #' @inheritParams phone_is_valid
 #' @return integer vector of country codes
 #' phone_country_code("+4916012345678")
@@ -53,4 +53,18 @@ phone_country_code <- function(phone) {
     res <- phone_country_codes_rs(phone)
     res[res == 9999] <- NA_integer_
     res
+}
+
+
+#' Extract country from phone numbers in different formats
+#' @inheritParams phone_is_valid
+#' @param type character. one of "iso2", "iso3", or "country"
+#' @return character vector of country codes
+#' phone_iso_code("+4916012345678")
+#' @export
+phone_iso_code <- function(phone, type = "iso2") {
+    res <- phone_country_codes_rs(phone)
+    res[res == 9999] <- NA_integer_
+    type <- match.arg(type, c("iso2", "iso3", "country"))
+    countries[[type]][match(res, countries$country_code)]
 }
