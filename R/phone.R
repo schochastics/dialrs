@@ -61,7 +61,7 @@ phone_country_code <- function(phone) {
 #' @param type character. one of "iso2", "iso3", or "country"
 #' @return character vector of country codes
 #' phone_iso_code("+4916012345678")
-# phone_iso_code <- function(phone, type = "iso2") {
+# phone_region <- function(phone, type = "iso2") {
 #     res <- phone_country_codes_rs(phone)
 #     res[res == 9999] <- NA_integer_
 #     type <- match.arg(type, c("iso2", "iso3", "country"))

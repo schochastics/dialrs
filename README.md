@@ -26,7 +26,7 @@ pak::pak("schochastics/dialrs")
 
 ``` r
 library(dialrs)
-numbers <- c("+1 202-555-0173", "+33-1-22-33-44-55", "+1 1 800 FLOWERS")
+numbers <- c("+1 202-555-0173", "+33 122 334 455", "+1 1 800 FLOWERS")
 phone_is_valid(numbers)
 #> [1]  TRUE  TRUE FALSE
 phone_type(numbers)
@@ -35,6 +35,8 @@ phone_country_code(numbers)
 #> [1]  1 33  1
 phone_parse(numbers, format = "International")
 #> [1] "+1 202-555-0173"   "+33 1 22 33 44 55" "+1 18003569377"
+phone_parse(numbers, format = "National")
+#> [1] "(202) 555-0173" "01 22 33 44 55" "18003569377"
 phone_parse(numbers, format = "RFC3966")
 #> [1] "tel:+1-202-555-0173"   "tel:+33-1-22-33-44-55" "tel:+1-18003569377"
 phone_parse(numbers, format = "E.164")
