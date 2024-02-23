@@ -6,3 +6,6 @@
 ^data-raw$
 ^\.github$
 README.html
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
