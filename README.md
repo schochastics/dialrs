@@ -4,6 +4,8 @@
 # dialrs <img src="man/figures/logo.png" align="right" height="139" alt="" />
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/schochastics/dialrs/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/schochastics/dialrs/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 dialrs is an experimental R package to parse phone numbers using the
