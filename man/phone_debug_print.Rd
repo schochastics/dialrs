@@ -9,7 +9,7 @@ phone_debug_print(input, country)
 \arguments{
 \item{input}{character. a phone number to parse}
 
-\item{country_code}{character. CLDR code}
+\item{country}{character. CLDR code}
 }
 \value{
 nothing just used for side effects

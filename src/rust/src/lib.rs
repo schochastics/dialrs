@@ -9,7 +9,7 @@ fn strip_hyphens(input: &str) -> String {
 
 /// Print Rust internal phonenumber for debugging purposes
 /// @param input character. a phone number to parse
-/// @param country_code character. CLDR code
+/// @param country character. CLDR code
 /// @return nothing just used for side effects
 /// @export
 #[extendr]

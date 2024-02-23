@@ -33,8 +33,6 @@ phone_type(numbers)
 #> [1] "fixed_line_or_mobile" "fixed_line"           "unknown"
 phone_country_code(numbers)
 #> [1]  1 33  1
-phone_iso_code(numbers)
-#> [1] "CA" "FR" "CA"
 phone_parse(numbers, format = "International")
 #> [1] "+1 202-555-0173"   "+33 1 22 33 44 55" "+1 18003569377"
 phone_parse(numbers, format = "RFC3966")

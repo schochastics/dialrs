@@ -3,9 +3,6 @@
 \name{phone_parse}
 \alias{phone_parse}
 \title{Parse phone numbers into specific format}
-\format{
-character. one of "International", "National", "RFC3966", "E.164"
-}
 \usage{
 phone_parse(phone, country = "", format)
 }
@@ -13,6 +10,8 @@ phone_parse(phone, country = "", format)
 \item{phone}{character vector of phone numbers}
 
 \item{country}{CLDR country code. If empty, tries to parse it from \code{phone}}
+
+\item{format}{character. one of "International", "National", "RFC3966", "E.164"}
 }
 \value{
 character vector of parsed and formatted phone numbers

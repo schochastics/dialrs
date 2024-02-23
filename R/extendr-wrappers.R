@@ -27,7 +27,7 @@ phone_country_codes_rs <- function(phone) .Call(wrap__phone_country_codes_rs, ph
 
 #' Print Rust internal phonenumber for debugging purposes
 #' @param input character. a phone number to parse
-#' @param country_code character. CLDR code
+#' @param country character. CLDR code
 #' @return nothing just used for side effects
 #' @export
 phone_debug_print <- function(input, country) invisible(.Call(wrap__phone_debug_print, input, country))
